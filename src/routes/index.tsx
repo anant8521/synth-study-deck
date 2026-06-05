@@ -117,7 +117,7 @@ function Index() {
           <span className="text-4xl animate-float">📚</span>
           <div className="text-center">
             <h2 className="text-lg font-bold text-white sm:text-xl">
-              Welcome Back, Engineer! 👋
+              Welcome back engineer
             </h2>
             <p className="text-sm text-white/85">Learn Today, Lead Tomorrow</p>
             <div className="mt-2 flex items-center justify-center gap-2 text-white/80">
