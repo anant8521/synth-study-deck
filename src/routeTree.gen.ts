@@ -9,38 +9,195 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PyqRouteImport } from './routes/pyq'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as NotesRouteImport } from './routes/notes'
+import { Route as McqRouteImport } from './routes/mcq'
+import { Route as LecturesRouteImport } from './routes/lectures'
+import { Route as ImportantQuestionsRouteImport } from './routes/important-questions'
+import { Route as CbtRouteImport } from './routes/cbt'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SubjectIdRouteImport } from './routes/subject.$id'
 
+const PyqRoute = PyqRouteImport.update({
+  id: '/pyq',
+  path: '/pyq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McqRoute = McqRouteImport.update({
+  id: '/mcq',
+  path: '/mcq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LecturesRoute = LecturesRouteImport.update({
+  id: '/lectures',
+  path: '/lectures',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImportantQuestionsRoute = ImportantQuestionsRouteImport.update({
+  id: '/important-questions',
+  path: '/important-questions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CbtRoute = CbtRouteImport.update({
+  id: '/cbt',
+  path: '/cbt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubjectIdRoute = SubjectIdRouteImport.update({
+  id: '/subject/$id',
+  path: '/subject/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cbt': typeof CbtRoute
+  '/important-questions': typeof ImportantQuestionsRoute
+  '/lectures': typeof LecturesRoute
+  '/mcq': typeof McqRoute
+  '/notes': typeof NotesRoute
+  '/profile': typeof ProfileRoute
+  '/pyq': typeof PyqRoute
+  '/subject/$id': typeof SubjectIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cbt': typeof CbtRoute
+  '/important-questions': typeof ImportantQuestionsRoute
+  '/lectures': typeof LecturesRoute
+  '/mcq': typeof McqRoute
+  '/notes': typeof NotesRoute
+  '/profile': typeof ProfileRoute
+  '/pyq': typeof PyqRoute
+  '/subject/$id': typeof SubjectIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cbt': typeof CbtRoute
+  '/important-questions': typeof ImportantQuestionsRoute
+  '/lectures': typeof LecturesRoute
+  '/mcq': typeof McqRoute
+  '/notes': typeof NotesRoute
+  '/profile': typeof ProfileRoute
+  '/pyq': typeof PyqRoute
+  '/subject/$id': typeof SubjectIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cbt'
+    | '/important-questions'
+    | '/lectures'
+    | '/mcq'
+    | '/notes'
+    | '/profile'
+    | '/pyq'
+    | '/subject/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cbt'
+    | '/important-questions'
+    | '/lectures'
+    | '/mcq'
+    | '/notes'
+    | '/profile'
+    | '/pyq'
+    | '/subject/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/cbt'
+    | '/important-questions'
+    | '/lectures'
+    | '/mcq'
+    | '/notes'
+    | '/profile'
+    | '/pyq'
+    | '/subject/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CbtRoute: typeof CbtRoute
+  ImportantQuestionsRoute: typeof ImportantQuestionsRoute
+  LecturesRoute: typeof LecturesRoute
+  McqRoute: typeof McqRoute
+  NotesRoute: typeof NotesRoute
+  ProfileRoute: typeof ProfileRoute
+  PyqRoute: typeof PyqRoute
+  SubjectIdRoute: typeof SubjectIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pyq': {
+      id: '/pyq'
+      path: '/pyq'
+      fullPath: '/pyq'
+      preLoaderRoute: typeof PyqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcq': {
+      id: '/mcq'
+      path: '/mcq'
+      fullPath: '/mcq'
+      preLoaderRoute: typeof McqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lectures': {
+      id: '/lectures'
+      path: '/lectures'
+      fullPath: '/lectures'
+      preLoaderRoute: typeof LecturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/important-questions': {
+      id: '/important-questions'
+      path: '/important-questions'
+      fullPath: '/important-questions'
+      preLoaderRoute: typeof ImportantQuestionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cbt': {
+      id: '/cbt'
+      path: '/cbt'
+      fullPath: '/cbt'
+      preLoaderRoute: typeof CbtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +205,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subject/$id': {
+      id: '/subject/$id'
+      path: '/subject/$id'
+      fullPath: '/subject/$id'
+      preLoaderRoute: typeof SubjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CbtRoute: CbtRoute,
+  ImportantQuestionsRoute: ImportantQuestionsRoute,
+  LecturesRoute: LecturesRoute,
+  McqRoute: McqRoute,
+  NotesRoute: NotesRoute,
+  ProfileRoute: ProfileRoute,
+  PyqRoute: PyqRoute,
+  SubjectIdRoute: SubjectIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
