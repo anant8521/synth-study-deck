@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, ChevronDown, BookOpen, FileText, Target, FileDown, ExternalLink, Sparkles, Shield, NotebookPen, ListChecks, Trophy } from "lucide-react";
+import { Search, ChevronDown, FileText, FileDown, ExternalLink, Sparkles, Shield, NotebookPen, ListChecks, Trophy, Users, Video, Target, TrendingUp, Crown, LogIn } from "lucide-react";
 import { AppShell, StatPill } from "@/components/app-shell";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Engineering Study Hub — SBTE Bihar Notes, MCQ, CBT" },
-      { name: "description", content: "Premium study hub for SBTE Bihar diploma engineering: notes, MCQs, CBT tests, syllabus & e-books." },
+      { title: "Youth Publication Learning Hub — Polytechnic & Diploma EdTech" },
+      { name: "description", content: "Premium learning hub for Polytechnic & SBTE Bihar diploma engineers: video lectures, notes, MCQs, CBT tests, PYQ & e-books." },
     ],
   }),
   component: Index,
@@ -41,34 +41,44 @@ function Index() {
       {/* HEADER */}
       <header className="glass-panel animate-pop-in p-4 -mt-4">
         <div className="flex items-center justify-center gap-2">
-          <span className="text-2xl animate-float">👷</span>
-          <h1 className="text-center text-2xl font-bold tracking-tight sm:text-3xl">Engineering Study Hub</h1>
-          <span className="text-2xl animate-float [animation-delay:.6s]">👷‍♀️</span>
+          <span className="text-2xl animate-float">📘</span>
+          <h1 className="text-center text-xl font-bold tracking-tight sm:text-2xl">Youth Publication</h1>
+          <span className="text-2xl animate-float [animation-delay:.6s]">🎓</span>
         </div>
-        <p className="mt-1 text-center text-xs text-muted-foreground sm:text-sm">SBTE Bihar | Notes | MCQ | CBT Tests | E-Books</p>
+        <p className="mt-1 text-center text-[11px] text-muted-foreground sm:text-xs">Learning Hub · Polytechnic · SBTE Bihar · AE / JE Prep</p>
         <div className="mt-4 relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
-            placeholder="Search Subject or Topic..."
+            placeholder="Search subject, lecture or topic..."
             className="w-full rounded-full bg-white/95 py-3 pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 outline-none ring-1 ring-white/20 focus:ring-2 focus:ring-[var(--neon)]"
           />
         </div>
       </header>
 
-      {/* WELCOME BANNER */}
+      {/* HERO BANNER */}
       <section className="animate-pop-in mt-4 overflow-hidden rounded-2xl p-5 ring-1 ring-white/15"
         style={{ background: "linear-gradient(120deg, #1e3a8a 0%, #3b2e9a 50%, #5b21b6 100%)" }}>
-        <div className="flex items-center justify-between gap-3">
-          <span className="text-4xl animate-float">📚</span>
-          <div className="text-center">
-            <h2 className="text-lg font-bold text-white sm:text-xl">Welcome Back, Engineer! 👋</h2>
-            <p className="text-sm text-white/85">Learn Today, Lead Tomorrow</p>
-          </div>
-          <span className="text-4xl animate-float [animation-delay:.8s]">📖</span>
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-white sm:text-2xl">India's #1 Polytechnic Learning App</h2>
+          <p className="mt-1 text-sm text-white/85">Learn Today, Lead Tomorrow 🚀</p>
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-2 text-center">
+          <HeroStat icon={<Users className="size-3.5" />} value="10,000+" label="Students" />
+          <HeroStat icon={<Video className="size-3.5" />} value="500+" label="Video Lectures" />
+          <HeroStat icon={<Target className="size-3.5" />} value="100+" label="Mock Tests" />
+          <HeroStat icon={<TrendingUp className="size-3.5" />} value="95%" label="Success Rate" />
+        </div>
+        <div className="mt-4 flex gap-2">
+          <Link to="/auth" className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-4 py-2.5 text-xs font-bold text-slate-900 shadow-lg transition active:scale-95">
+            <LogIn className="size-3.5" /> Start Learning
+          </Link>
+          <Link to="/membership" className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-amber-400 px-4 py-2.5 text-xs font-bold text-slate-900 shadow-lg transition active:scale-95">
+            <Crown className="size-3.5" /> Explore Plans
+          </Link>
         </div>
       </section>
 
-      {/* STATS (replaced misleading progress) */}
+      {/* QUICK STATS */}
       <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Link to="/notes"><StatPill icon={<NotebookPen className="size-4" />} value="120" label="Notes Read" tone="blue" /></Link>
         <Link to="/mcq"><StatPill icon={<ListChecks className="size-4" />} value="350" label="MCQ Attempted" tone="pink" /></Link>
@@ -130,14 +140,23 @@ function Index() {
       {/* FOOTER */}
       <footer className="glass-panel animate-pop-in mt-4 p-5 text-center">
         <p className="flex items-center justify-center gap-2 font-semibold">
-          <Shield className="size-4 text-amber-400" /> Engineering Study Hub
+          <Shield className="size-4 text-amber-400" /> Youth Publication Learning Hub
         </p>
         <p className="mt-1 text-sm text-muted-foreground">
           Stay Consistent, Stay Focused, Be an <span className="font-semibold text-amber-400">Engineer!</span>
         </p>
-        <p className="mt-3 text-xs text-muted-foreground">© 2026 Engineering Study Hub. All Rights Reserved.</p>
+        <p className="mt-3 text-xs text-muted-foreground">© 2026 Youth Publication. All Rights Reserved.</p>
       </footer>
     </AppShell>
+  );
+}
+
+function HeroStat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
+  return (
+    <div className="rounded-xl bg-white/10 p-2 backdrop-blur ring-1 ring-white/15">
+      <div className="flex items-center justify-center gap-1 text-[10px] text-white/70">{icon}{label}</div>
+      <div className="mt-0.5 text-sm font-extrabold text-white">{value}</div>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Bookmark, Download, Settings, HelpCircle, LogOut, ChevronRight, NotebookPen, ListChecks, FileText, Target, Sun, Moon } from "lucide-react";
+import { Bookmark, Download, Settings, HelpCircle, LogOut, ChevronRight, NotebookPen, ListChecks, FileText, Target, Sun, Moon, Crown, LogIn } from "lucide-react";
 import { AppShell, StatPill } from "@/components/app-shell";
 
 export const Route = createFileRoute("/profile")({
@@ -18,10 +18,12 @@ function ProfilePage() {
   useEffect(() => { document.documentElement.classList.toggle("light", light); }, [light]);
 
   const menu = [
+    { icon: Crown, label: "Membership: Gold", to: "/membership" as const },
     { icon: Bookmark, label: "Bookmarks" },
     { icon: Download, label: "Downloads" },
     { icon: Settings, label: "Settings" },
     { icon: HelpCircle, label: "Help & Support" },
+    { icon: LogIn, label: "Sign in / Register", to: "/auth" as const },
     { icon: LogOut, label: "Logout", danger: true },
   ];
 
@@ -51,15 +53,22 @@ function ProfilePage() {
 
       {/* Menu */}
       <section className="glass-panel animate-pop-in mt-4 divide-y divide-white/5 p-2">
-        {menu.map((m) => (
-          <button key={m.label} className="flex w-full items-center gap-3 px-3 py-3 text-left transition hover:bg-white/5">
-            <div className={`grid size-9 place-items-center rounded-xl ${m.danger ? "bg-rose-500/15 text-rose-300" : "bg-white/5 text-[var(--neon)]"}`}>
-              <m.icon className="size-4" />
-            </div>
-            <span className={`flex-1 text-sm font-medium ${m.danger ? "text-rose-300" : ""}`}>{m.label}</span>
-            <ChevronRight className="size-4 text-muted-foreground" />
-          </button>
-        ))}
+        {menu.map((m) => {
+          const inner = (
+            <>
+              <div className={`grid size-9 place-items-center rounded-xl ${m.danger ? "bg-rose-500/15 text-rose-300" : "bg-white/5 text-[var(--neon)]"}`}>
+                <m.icon className="size-4" />
+              </div>
+              <span className={`flex-1 text-sm font-medium ${m.danger ? "text-rose-300" : ""}`}>{m.label}</span>
+              <ChevronRight className="size-4 text-muted-foreground" />
+            </>
+          );
+          return m.to ? (
+            <Link key={m.label} to={m.to} className="flex w-full items-center gap-3 px-3 py-3 text-left transition hover:bg-white/5">{inner}</Link>
+          ) : (
+            <button key={m.label} className="flex w-full items-center gap-3 px-3 py-3 text-left transition hover:bg-white/5">{inner}</button>
+          );
+        })}
       </section>
     </AppShell>
   );
