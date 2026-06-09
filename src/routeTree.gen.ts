@@ -12,10 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PyqRouteImport } from './routes/pyq'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotesRouteImport } from './routes/notes'
+import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as McqRouteImport } from './routes/mcq'
 import { Route as LecturesRouteImport } from './routes/lectures'
 import { Route as ImportantQuestionsRouteImport } from './routes/important-questions'
 import { Route as CbtRouteImport } from './routes/cbt'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SubjectIdRouteImport } from './routes/subject.$id'
 
@@ -32,6 +34,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const NotesRoute = NotesRouteImport.update({
   id: '/notes',
   path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipRoute = MembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McqRoute = McqRouteImport.update({
@@ -54,6 +61,11 @@ const CbtRoute = CbtRouteImport.update({
   path: '/cbt',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,10 +79,12 @@ const SubjectIdRoute = SubjectIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cbt': typeof CbtRoute
   '/important-questions': typeof ImportantQuestionsRoute
   '/lectures': typeof LecturesRoute
   '/mcq': typeof McqRoute
+  '/membership': typeof MembershipRoute
   '/notes': typeof NotesRoute
   '/profile': typeof ProfileRoute
   '/pyq': typeof PyqRoute
@@ -78,10 +92,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cbt': typeof CbtRoute
   '/important-questions': typeof ImportantQuestionsRoute
   '/lectures': typeof LecturesRoute
   '/mcq': typeof McqRoute
+  '/membership': typeof MembershipRoute
   '/notes': typeof NotesRoute
   '/profile': typeof ProfileRoute
   '/pyq': typeof PyqRoute
@@ -90,10 +106,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cbt': typeof CbtRoute
   '/important-questions': typeof ImportantQuestionsRoute
   '/lectures': typeof LecturesRoute
   '/mcq': typeof McqRoute
+  '/membership': typeof MembershipRoute
   '/notes': typeof NotesRoute
   '/profile': typeof ProfileRoute
   '/pyq': typeof PyqRoute
@@ -103,10 +121,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/cbt'
     | '/important-questions'
     | '/lectures'
     | '/mcq'
+    | '/membership'
     | '/notes'
     | '/profile'
     | '/pyq'
@@ -114,10 +134,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/cbt'
     | '/important-questions'
     | '/lectures'
     | '/mcq'
+    | '/membership'
     | '/notes'
     | '/profile'
     | '/pyq'
@@ -125,10 +147,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/cbt'
     | '/important-questions'
     | '/lectures'
     | '/mcq'
+    | '/membership'
     | '/notes'
     | '/profile'
     | '/pyq'
@@ -137,10 +161,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   CbtRoute: typeof CbtRoute
   ImportantQuestionsRoute: typeof ImportantQuestionsRoute
   LecturesRoute: typeof LecturesRoute
   McqRoute: typeof McqRoute
+  MembershipRoute: typeof MembershipRoute
   NotesRoute: typeof NotesRoute
   ProfileRoute: typeof ProfileRoute
   PyqRoute: typeof PyqRoute
@@ -168,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/notes'
       fullPath: '/notes'
       preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membership': {
+      id: '/membership'
+      path: '/membership'
+      fullPath: '/membership'
+      preLoaderRoute: typeof MembershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcq': {
@@ -198,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CbtRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -217,10 +257,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   CbtRoute: CbtRoute,
   ImportantQuestionsRoute: ImportantQuestionsRoute,
   LecturesRoute: LecturesRoute,
   McqRoute: McqRoute,
+  MembershipRoute: MembershipRoute,
   NotesRoute: NotesRoute,
   ProfileRoute: ProfileRoute,
   PyqRoute: PyqRoute,
@@ -229,13 +271,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
