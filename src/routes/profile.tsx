@@ -17,13 +17,13 @@ function ProfilePage() {
   const [light, setLight] = useState(false);
   useEffect(() => { document.documentElement.classList.toggle("light", light); }, [light]);
 
-  const menu = [
-    { icon: Crown, label: "Membership: Gold", to: "/membership" as const },
+  const menu: Array<{ icon: any; label: string; to?: "/membership" | "/auth"; danger?: boolean }> = [
+    { icon: Crown, label: "Membership: Gold", to: "/membership" },
     { icon: Bookmark, label: "Bookmarks" },
     { icon: Download, label: "Downloads" },
     { icon: Settings, label: "Settings" },
     { icon: HelpCircle, label: "Help & Support" },
-    { icon: LogIn, label: "Sign in / Register", to: "/auth" as const },
+    { icon: LogIn, label: "Sign in / Register", to: "/auth" },
     { icon: LogOut, label: "Logout", danger: true },
   ];
 
